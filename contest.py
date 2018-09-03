@@ -43,8 +43,8 @@ def enableWriteFlagForGitRepoFiles(git_repo):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('repo', type=str,        nargs='?', default=None)
-    parser.add_argument('branch1', type=str,     nargs='?', default=None)
-    parser.add_argument('branch2', type=str,     nargs='?', default=None)
+    parser.add_argument('basebranch', type=str,     nargs='?', default=None)
+    parser.add_argument('testbranch', type=str,     nargs='?', default=None)
     parser.add_argument('makeCommand', type=str, nargs='?', default=None)
     parser.add_argument('exeName', type=str,     nargs='?', default=None)
     parser.add_argument('-ls','--list', action='store_true', required = False, default = False, help='list all available tests found')
@@ -52,12 +52,12 @@ def main():
     args = parser.parse_args()
     noneTotal = 0
     if args.repo is None: noneTotal += 1
-    if args.branch1 is None: noneTotal += 1
-    if args.branch2 is None: noneTotal += 1
+    if args.basebranch is None: noneTotal += 1
+    if args.testbranch is None: noneTotal += 1
     if args.makeCommand is None: noneTotal += 1
     if args.exeName is None: noneTotal += 1
     if noneTotal > 0 and noneTotal < 5:
-        print("Error: [repo branch1 branch2 makeCommand exeName] is an optional 5-argument group")
+        print("Error: [repo basebranch testbranch makeCommand exeName] is an optional 5-argument group")
         parser.print_help(sys.stderr)
         exit(1)
     cd(this_repo_path)
@@ -77,7 +77,7 @@ def call_build(makeCommand):
     runCmdAndHideOutput(makeCommand)
 
 def compile_default_projects(args):
-    for eachRepo,eachBranch in zip([dirname_baseline, dirname_testline],[args.branch1,args.branch2]):
+    for eachRepo,eachBranch in zip([dirname_baseline, dirname_testline],[args.basebranch,args.testbranch]):
         branch,commit = get_branch_and_commit(eachBranch)
         print("{}: cloning repo '{}' and switching to {}:{}".format(eachRepo, args.repo, branch, commit))
         if is_repo_at_commit(eachRepo, branch, commit)==False: ## check if baseline repo is already set up, if not then make it
