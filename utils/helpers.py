@@ -139,7 +139,7 @@ def getFileContents(filename): ## helper fn to load a file and return contents a
 def repoSaveFiles(filename, testName, errorMsg):
     if not os.path.isdir(os.path.join(this_repo_path,'failed')): os.makedirs(os.path.join(this_repo_path,'failed'))
     if not os.path.isdir(os.path.join(this_repo_path,'failed',testName)): os.makedirs(os.path.join(this_repo_path,'failed',testName))
-    with open(os.path.join(this_repo_path,'failed',testName,'log.'+testName+'.txt'),'w') as log:
+    with open(os.path.join(this_repo_path,'failed',testName,'log.'+testName+'.txt'),'w+') as log:
         log.write(errorMsg)
     shutil.copyfile(os.path.join(this_repo_path,dirname_baseline,filename),os.path.join(this_repo_path,'failed',testName,dirname_baseline[:-1]+'.'+filename))
     shutil.copyfile(os.path.join(this_repo_path,dirname_testline,filename),os.path.join(this_repo_path,'failed',testName,dirname_testline[:-1]+'.'+filename))
@@ -147,7 +147,7 @@ def repoSaveFiles(filename, testName, errorMsg):
 def saveFiles(file1, file2, testName, errorMsg):
     if not os.path.isdir(os.path.join(this_repo_path,'failed')): os.makedirs(os.path.join(this_repo_path,'failed'))
     if not os.path.isdir(os.path.join(this_repo_path,'failed',testName)): os.makedirs(os.path.join(this_repo_path,'failed',testName))
-    with open(os.path.join(this_repo_path,'failed',testName,'log.'+testName+'.txt'),'w') as log:
+    with open(os.path.join(this_repo_path,'failed',testName,'log.'+testName+'.txt'),'w+') as log:
         log.write(errorMsg)
     shutil.copyfile(os.path.abspath(file1),os.path.join(this_repo_path,'failed',testName,file1))
     shutil.copyfile(os.path.abspath(file2),os.path.join(this_repo_path,'failed',testName,file2))
