@@ -1,5 +1,5 @@
 # conTest
-Consistency testing at the executable level
+Consistency testing at the executable level between 2 [usually different] github branches.
 
 ### Example Output
 ```
